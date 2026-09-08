@@ -1,0 +1,403 @@
+<title>Meridian Type-1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+
+  :root{
+    --bg: #eeece5;
+    --bg-raised: #e2ded2;
+    --ink: #1b1a17;
+    --ink-dim: #6d6a61;
+    --accent: #c1531c;
+    --accent-ink: #fff6ee;
+    --line: rgba(27,26,23,0.14);
+    --line-strong: rgba(27,26,23,0.26);
+    --plate-bg: #1b1a17;
+    --plate-ink: #f3efe6;
+    --plate-dim: #9a978d;
+  }
+
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg: #14161b;
+      --bg-raised: #1b1e25;
+      --ink: #f3efe6;
+      --ink-dim: #97998f;
+      --accent: #e07a3d;
+      --accent-ink: #1b1108;
+      --line: rgba(243,239,230,0.13);
+      --line-strong: rgba(243,239,230,0.24);
+      --plate-bg: #0e0f12;
+      --plate-ink: #f3efe6;
+      --plate-dim: #7d8079;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg: #14161b;
+    --bg-raised: #1b1e25;
+    --ink: #f3efe6;
+    --ink-dim: #97998f;
+    --accent: #e07a3d;
+    --accent-ink: #1b1108;
+    --line: rgba(243,239,230,0.13);
+    --line-strong: rgba(243,239,230,0.24);
+    --plate-bg: #0e0f12;
+    --plate-ink: #f3efe6;
+    --plate-dim: #7d8079;
+  }
+
+  *{ box-sizing: border-box; }
+  h1,h2,h3,p{ margin:0; }
+
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  }
+
+  .hero{
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line-strong);
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-position: -1px -1px;
+  }
+
+  .hero::before{
+    content: "";
+    position: absolute;
+    inset: -20% -10% auto auto;
+    width: min(64vw, 900px);
+    height: min(64vw, 900px);
+    right: -10%;
+    top: -30%;
+    background: radial-gradient(circle, var(--accent) 0%, transparent 62%);
+    opacity: 0.16;
+    filter: blur(10px);
+    pointer-events: none;
+  }
+
+  .hero-inner{
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: clamp(20px, 3.4vw, 36px) clamp(20px, 4vw, 56px) 0;
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: clamp(28px, 4vw, 48px);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .wordmark{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "Big Shoulders Display", ui-sans-serif, sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .wordmark .mark{
+    width: 11px; height: 11px;
+    background: var(--accent);
+    transform: rotate(45deg);
+    flex: none;
+  }
+
+  .topbar nav{
+    display: flex;
+    gap: clamp(16px, 2.6vw, 34px);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .topbar nav a{
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+  }
+  .topbar nav a:hover,
+  .topbar nav a:focus-visible{
+    color: var(--ink);
+    border-color: var(--accent);
+  }
+  .topbar nav a:focus-visible{ outline: 2px solid var(--accent); outline-offset: 4px; }
+
+  @media (max-width: 640px){
+    .topbar nav{ display: none; }
+  }
+
+  /* ---------- main grid ---------- */
+  .stage{
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(260px, 0.85fr);
+    gap: clamp(28px, 4vw, 64px);
+    align-items: center;
+    padding: clamp(36px, 6vw, 72px) 0 clamp(28px, 5vw, 56px);
+  }
+
+  @media (max-width: 900px){
+    .stage{ grid-template-columns: 1fr; }
+  }
+
+  .copy{ min-width: 0; }
+
+  .eyebrow{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.05s forwards;
+  }
+  .eyebrow::before{
+    content: "";
+    width: 26px; height: 1px;
+    background: var(--accent);
+  }
+
+  h1{
+    font-family: "Big Shoulders Display", ui-sans-serif, sans-serif;
+    font-weight: 900;
+    text-transform: uppercase;
+    font-size: clamp(46px, 6.6vw, 96px);
+    line-height: 0.94;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  h1 span{
+    display: block;
+    opacity: 0;
+    transform: translateY(0.4em);
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  h1 span:nth-child(1){ animation-delay: 0.12s; }
+  h1 span:nth-child(2){ animation-delay: 0.22s; color: var(--accent); }
+  h1 span:nth-child(3){ animation-delay: 0.32s; }
+
+  .lede{
+    margin-top: 24px;
+    max-width: 46ch;
+    font-size: clamp(15.5px, 1.4vw, 17.5px);
+    line-height: 1.55;
+    color: var(--ink-dim);
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.42s forwards;
+  }
+
+  .cta-row{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+    margin-top: 34px;
+    opacity: 0;
+    animation: rise 0.7s cubic-bezier(.2,.7,.2,1) 0.52s forwards;
+  }
+
+  .btn{
+    font-family: "Archivo", sans-serif;
+    font-weight: 600;
+    font-size: 14.5px;
+    letter-spacing: 0.01em;
+    padding: 14px 26px;
+    border-radius: 2px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+  .btn-primary{
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+  .btn-primary:hover{ filter: brightness(1.08); }
+  .btn-ghost{
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line-strong);
+  }
+  .btn-ghost:hover{ border-color: var(--ink); }
+  .btn:focus-visible{ outline: 2px solid var(--accent); outline-offset: 3px; }
+
+  /* ---------- spec plate ---------- */
+  .plate{
+    position: relative;
+    background: var(--plate-bg);
+    color: var(--plate-ink);
+    padding: 26px 24px 22px;
+    border-radius: 3px;
+    box-shadow: 0 24px 48px -24px rgba(0,0,0,0.45);
+    opacity: 0;
+    animation: rise 0.8s cubic-bezier(.2,.7,.2,1) 0.35s forwards;
+  }
+
+  .plate-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(243,239,230,0.16);
+    padding-bottom: 14px;
+    margin-bottom: 6px;
+  }
+  .plate-head .model{
+    font-family: "Big Shoulders Display", sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  .plate-head .tag{
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 11px;
+    color: var(--plate-dim);
+    letter-spacing: 0.05em;
+  }
+
+  .spec{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    padding: 11px 0;
+    border-bottom: 1px solid rgba(243,239,230,0.08);
+    font-family: "IBM Plex Mono", monospace;
+  }
+  .spec:last-of-type{ border-bottom: none; }
+  .spec .k{
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--plate-dim);
+  }
+  .spec .v{
+    font-size: 15px;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    text-align: right;
+    white-space: nowrap;
+  }
+  .spec .v small{
+    color: var(--plate-dim);
+    font-size: 11px;
+    margin-left: 3px;
+  }
+
+  .silhouette{
+    margin-top: 16px;
+    width: 100%;
+    height: auto;
+    color: var(--accent);
+    opacity: 0.9;
+  }
+
+  /* ---------- bottom ticker ---------- */
+  .ticker{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    border-top: 1px solid var(--line-strong);
+    font-family: "IBM Plex Mono", monospace;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+  }
+  .ticker span{
+    padding: 16px clamp(14px, 2.2vw, 26px);
+    border-right: 1px solid var(--line);
+    font-variant-numeric: tabular-nums;
+  }
+  .ticker span:last-child{ border-right: none; }
+  .ticker span b{
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  @keyframes rise{
+    from{ opacity: 0; transform: translateY(14px); }
+    to{ opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow, h1 span, .lede, .cta-row, .plate{
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<div class="hero">
+  <div class="hero-inner">
+
+    <div class="topbar">
+      <div class="wordmark"><span class="mark"></span>Meridian</div>
+      <nav>
+        <a href="#">Type-1</a>
+        <a href="#">Performance</a>
+        <a href="#">Ownership</a>
+        <a href="#">Dealers</a>
+      </nav>
+    </div>
+
+    <div class="stage">
+      <div class="copy">
+        <p class="eyebrow">Meridian Type&#8209;1 &middot; Quad&#8209;Motor Chassis</p>
+        <h1><span>Built to</span><span>outrun</span><span>its own shadow</span></h1>
+        <p class="lede">A 0.21 drag coefficient and four independently torque&#8209;vectored motors put 850&nbsp;hp on the road without raising your pulse &mdash; quiet enough for the school run, quick enough for Sunday's time attack.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#">Reserve the Type&#8209;1</a>
+          <a class="btn btn-ghost" href="#">View full spec sheet</a>
+        </div>
+      </div>
+
+      <div class="plate">
+        <div class="plate-head">
+          <span class="model">Type&#8209;1</span>
+          <span class="tag">VIN&nbsp;MDN&#8209;T1&#8209;2027</span>
+        </div>
+        <div class="spec"><span class="k">Drivetrain</span><span class="v">Quad&#8209;Motor AWD</span></div>
+        <div class="spec"><span class="k">0&ndash;60&nbsp;mph</span><span class="v">2.1<small>SEC</small></span></div>
+        <div class="spec"><span class="k">Power</span><span class="v">850<small>HP</small> / 634<small>KW</small></span></div>
+        <div class="spec"><span class="k">Range (EPA)</span><span class="v">320<small>MI</small></span></div>
+        <div class="spec"><span class="k">Drag coefficient</span><span class="v">0.21<small>CD</small></span></div>
+
+        <svg class="silhouette" viewBox="0 0 600 170" fill="none" aria-hidden="true">
+          <path d="M18,140 L18,128 C18,120 34,112 52,109 C86,103 118,78 150,62 C182,47 222,41 262,41 L344,41 C384,41 414,49 444,66 C466,78 486,92 524,102 C548,108 566,116 574,128 L574,140" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="18" y1="140" x2="574" y2="140" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="132" cy="140" r="26" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="460" cy="140" r="26" stroke="currentColor" stroke-width="2.5"/>
+          <path d="M150,62 C150,80 158,96 176,103 L336,103 C356,96 366,80 366,62" stroke="currentColor" stroke-width="1.5" opacity="0.55"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="ticker">
+      <span><b>850</b> HP</span>
+      <span><b>2.1s</b> 0&ndash;60</span>
+      <span><b>320</b> mi range</span>
+      <span><b>0.21</b> Cd</span>
+      <span>Quad&#8209;motor AWD</span>
+      <span>Torque vectoring standard</span>
+    </div>
+
+  </div>
+</div>
